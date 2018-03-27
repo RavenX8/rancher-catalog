@@ -1,5 +1,15 @@
 version: "2"
 services:
+  base:
+    image: osirose-server
+    environment:
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
+    tty: true
+    stdin_open: true
   server-data:
     image: busybox
     labels:
@@ -35,7 +45,6 @@ services:
     volumes_from:
       - server-data
     extends:
-      file: base.yml
       service: base
     environment:
       - SERVER=LoginServer
@@ -51,7 +60,6 @@ services:
     volumes_from:
       - server-data
     extends:
-      file: base.yml
       service: base
     environment:
       - SERVER=CharServer
@@ -67,7 +75,6 @@ services:
     volumes_from:
       - server-data
     extends:
-      file: base.yml
       service: base
     environment:
       - SERVER=MapServer
