@@ -9,7 +9,7 @@ services:
      - /logs
      - /config
   node:
-    build: .
+    image: osirose-server
     networks:
      - frontend
      - backend
@@ -21,10 +21,10 @@ services:
       io.rancher.sidekicks: server-data
     volumes_from:
       - server-data
-    enviroment:
+    environment:
       - SERVER=NodeServer
   login:
-    build: .
+    image: osirose-server
     networks:
      - backend
     ports:
@@ -37,10 +37,10 @@ services:
     extends:
       file: base.yml
       service: base
-    enviroment:
+    environment:
       - SERVER=LoginServer
   char:
-    build: .
+    image: osirose-server
     networks:
      - backend
     ports:
@@ -53,10 +53,10 @@ services:
     extends:
       file: base.yml
       service: base
-    enviroment:
+    environment:
       - SERVER=CharServer
   map:
-    build: .
+    image: osirose-server
     networks:
       - backend
     ports:
@@ -69,7 +69,7 @@ services:
     extends:
       file: base.yml
       service: base
-    enviroment:
+    environment:
       - SERVER=MapServer
       
 networks:
