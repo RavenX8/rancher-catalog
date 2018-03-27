@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 catalog:
   name: "osirose"
   version: "0.0.0"
