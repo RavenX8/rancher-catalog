@@ -27,8 +27,6 @@ services:
      - "29000:29000"
      - "29100:29100"
      - "29200:29200"
-    labels:
-      io.rancher.sidekicks: server-data
     volumes_from:
       - server-data
     environment:
@@ -40,8 +38,6 @@ services:
     ports:
      - "29000:29000"
      - "29010:29010"
-    labels:
-      io.rancher.sidekicks: server-data
     volumes_from:
       - server-data
     extends:
@@ -55,8 +51,6 @@ services:
     ports:
      - "29100:29100"
      - "29110:29110"
-    labels:
-      io.rancher.sidekicks: server-data
     volumes_from:
       - server-data
     extends:
