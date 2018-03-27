@@ -10,14 +10,6 @@ services:
       DB_USER_PASSWORD: ${mysql_password}
     tty: true
     stdin_open: true
-  server-data:
-    image: busybox
-    labels:
-     io.rancher.container.start_once: true
-    volumes:
-     - /data
-     - /logs
-     - /config
   node:
     image: ravenx8/osirose
     networks:
@@ -28,9 +20,9 @@ services:
      - "29100:29100"
      - "29200:29200"
     volumes:
-     - /data
-     - /logs
-     - /config
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
     environment:
       - SERVER=NodeServer
   login:
@@ -41,9 +33,9 @@ services:
      - "29000:29000"
      - "29010:29010"
     volumes:
-     - /data
-     - /logs
-     - /config
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
     extends:
       service: base
     environment:
@@ -56,9 +48,9 @@ services:
      - "29100:29100"
      - "29110:29110"
     volumes:
-     - /data
-     - /logs
-     - /config
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
     extends:
       service: base
     environment:
@@ -70,10 +62,10 @@ services:
     ports:
      - "29200:29200"
      - "29210:29210"
-    labels:
-      io.rancher.sidekicks: server-data
-    volumes_from:
-      - server-data
+    volumes:
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
     extends:
       service: base
     environment:
