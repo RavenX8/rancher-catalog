@@ -1,7 +1,7 @@
 version: "2"
 catalog:
   name: "osirose"
-  version: "0.0.0"
+  version: "0.0.1"
   description: "Deploys an full osirose server stack"
   minimum_rancher_version: "v1.6.15"
   maximum_rancher_version: ">v1.6.15"
@@ -12,6 +12,7 @@ catalog:
       label: "MySQL Service Name"
       required: true
       type: "string"
+      default: "mysql/mysql-lb:database"
     - variable: mysql_lb_port
       description: "Public port for access to MySQL through the load balancer"
       label: "MySQL Public LB Port"
@@ -35,12 +36,9 @@ catalog:
       type: password
       
 services:
-  server-data:
-    scale: 1
-    start_on_create: true
   node:
     scale: 1
-    start_on_create: true
+    start_on_create: false
     health_check:
       healthy_threshold: 2
       response_timeout: 2000

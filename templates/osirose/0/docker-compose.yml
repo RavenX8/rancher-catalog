@@ -1,17 +1,9 @@
 version: "2"
 services:
-  base:
-    image: busybox
-    environment:
-      DB_HOST: ${mysql_hostname}
-      DB_PORT: ${mysql_lb_port}
-      DB_NAME: ${mysql_database}
-      DB_USER_NAME: ${mysql_user}
-      DB_USER_PASSWORD: ${mysql_password}
-    tty: true
-    stdin_open: true
   node:
     image: ravenx8/osirose
+    tty: true
+    stdin_open: true
     networks:
      - frontend
      - backend
@@ -24,9 +16,16 @@ services:
      - osirose-logs:/logs
      - osirose-config:/config
     environment:
-      - SERVER=NodeServer
+      SERVER: NodeServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
   login:
     image: ravenx8/osirose
+    tty: true
+    stdin_open: true
     networks:
      - backend
     ports:
@@ -36,12 +35,17 @@ services:
      - osirose-data:/data
      - osirose-logs:/logs
      - osirose-config:/config
-    extends:
-      service: base
     environment:
-      - SERVER=LoginServer
+      SERVER: LoginServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
   char:
     image: ravenx8/osirose
+    tty: true
+    stdin_open: true
     networks:
      - backend
     ports:
@@ -51,12 +55,17 @@ services:
      - osirose-data:/data
      - osirose-logs:/logs
      - osirose-config:/config
-    extends:
-      service: base
     environment:
-      - SERVER=CharServer
+      SERVER: CharServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
   map:
     image: ravenx8/osirose
+    tty: true
+    stdin_open: true
     networks:
       - backend
     ports:
@@ -66,10 +75,13 @@ services:
      - osirose-data:/data
      - osirose-logs:/logs
      - osirose-config:/config
-    extends:
-      service: base
     environment:
-      - SERVER=MapServer
+      SERVER: MapServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
       
 networks:
   frontend:
