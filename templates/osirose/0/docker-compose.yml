@@ -1,7 +1,7 @@
 version: "2"
 services:
   base:
-    image: osirose-server
+    image: busybox
     environment:
       DB_HOST: ${mysql_hostname}
       DB_PORT: ${mysql_lb_port}
@@ -19,7 +19,7 @@ services:
      - /logs
      - /config
   node:
-    image: osirose-server
+    image: ravenx8/osirose
     networks:
      - frontend
      - backend
@@ -32,7 +32,7 @@ services:
     environment:
       - SERVER=NodeServer
   login:
-    image: osirose-server
+    image: ravenx8/osirose
     networks:
      - backend
     ports:
@@ -45,7 +45,7 @@ services:
     environment:
       - SERVER=LoginServer
   char:
-    image: osirose-server
+    image: ravenx8/osirose
     networks:
      - backend
     ports:
@@ -58,7 +58,7 @@ services:
     environment:
       - SERVER=CharServer
   map:
-    image: osirose-server
+    image: ravenx8/osirose
     networks:
       - backend
     ports:
