@@ -27,8 +27,10 @@ services:
      - "29000:29000"
      - "29100:29100"
      - "29200:29200"
-    volumes_from:
-      - server-data
+    volumes:
+     - /data
+     - /logs
+     - /config
     environment:
       - SERVER=NodeServer
   login:
@@ -38,8 +40,10 @@ services:
     ports:
      - "29000:29000"
      - "29010:29010"
-    volumes_from:
-      - server-data
+    volumes:
+     - /data
+     - /logs
+     - /config
     extends:
       service: base
     environment:
@@ -51,8 +55,10 @@ services:
     ports:
      - "29100:29100"
      - "29110:29110"
-    volumes_from:
-      - server-data
+    volumes:
+     - /data
+     - /logs
+     - /config
     extends:
       service: base
     environment:
