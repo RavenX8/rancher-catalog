@@ -22,7 +22,7 @@ services:
     volumes_from:
       - server-data
     enviroment:
-      SERVER: NodeServer
+      - SERVER=NodeServer
   login:
     build: .
     networks:
@@ -38,7 +38,7 @@ services:
       file: base.yml
       service: base
     enviroment:
-      SERVER: LoginServer
+      - SERVER=LoginServer
   char:
     build: .
     networks:
@@ -54,7 +54,7 @@ services:
       file: base.yml
       service: base
     enviroment:
-      SERVER: CharServer
+      - SERVER=CharServer
   map:
     build: .
     networks:
@@ -70,7 +70,7 @@ services:
       file: base.yml
       service: base
     enviroment:
-      SERVER: MapServer
+      - SERVER=MapServer
       
 networks:
   frontend:
