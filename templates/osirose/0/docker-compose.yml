@@ -1,0 +1,79 @@
+version: '3'
+services:
+  server-data:
+    image: busybox
+    labels:
+     io.rancher.container.start_once: true
+    volumes:
+     - /data
+     - /logs
+     - /config
+  node:
+    build: .
+    networks:
+     - frontend
+     - backend
+    ports:
+     - "29000:29000"
+     - "29100:29100"
+     - "29200:29200"
+    labels:
+      io.rancher.sidekicks: server-data
+    volumes_from:
+      - server-data
+    enviroment:
+      SERVER: NodeServer
+  login:
+    build: .
+    networks:
+     - backend
+    ports:
+     - "29000:29000"
+     - "29010:29010"
+    labels:
+      io.rancher.sidekicks: server-data
+    volumes_from:
+      - server-data
+    extends:
+      file: base.yml
+      service: base
+    enviroment:
+      SERVER: LoginServer
+  char:
+    build: .
+    networks:
+     - backend
+    ports:
+     - "29100:29100"
+     - "29110:29110"
+    labels:
+      io.rancher.sidekicks: server-data
+    volumes_from:
+      - server-data
+    extends:
+      file: base.yml
+      service: base
+    enviroment:
+      SERVER: CharServer
+  map:
+    build: .
+    networks:
+      - backend
+    ports:
+     - "29200:29200"
+     - "29210:29210"
+    labels:
+      io.rancher.sidekicks: server-data
+    volumes_from:
+      - server-data
+    extends:
+      file: base.yml
+      service: base
+    enviroment:
+      SERVER: MapServer
+      
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: overlay
