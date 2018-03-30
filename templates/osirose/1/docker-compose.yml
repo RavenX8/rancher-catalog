@@ -1,0 +1,105 @@
+version: "2"
+services:
+  node:
+    image: ravenx8/dockerfiles
+    tty: true
+    stdin_open: true
+    networks:
+     - frontend
+     - backend
+    ports:
+     - "29000:29000"
+     - "29100:29100"
+     - "29200:29200"
+    volumes:
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
+    environment:
+      SERVER: NodeServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
+    labels:
+      io.rancher.container.pull_image: always
+      server.type: node
+  login:
+    image: ravenx8/dockerfiles
+    tty: true
+    stdin_open: true
+    networks:
+     - backend
+    ports:
+     - "29000:29000"
+     - "29010:29010"
+    volumes:
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
+    environment:
+      SERVER: LoginServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+      server.type: game-server
+  char:
+    image: ravenx8/dockerfiles
+    tty: true
+    stdin_open: true
+    networks:
+     - backend
+    ports:
+     - "29100:29100"
+     - "29110:29110"
+    volumes:
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
+    environment:
+      SERVER: CharServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+      server.type: game-server
+  map:
+    image: ravenx8/dockerfiles
+    tty: true
+    stdin_open: true
+    networks:
+      - backend
+    ports:
+     - "29200:29200"
+     - "29210:29210"
+    volumes:
+     - osirose-data:/data
+     - osirose-logs:/logs
+     - osirose-config:/config
+    environment:
+      SERVER: MapServer
+      DB_HOST: ${mysql_hostname}
+      DB_PORT: ${mysql_lb_port}
+      DB_NAME: ${mysql_database}
+      DB_USER_NAME: ${mysql_user}
+      DB_USER_PASSWORD: ${mysql_password}
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.container.start_once: 'true'
+      server.type: game-server
+      
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: overlay
