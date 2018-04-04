@@ -51,7 +51,6 @@ services:
       URL: ${autoconfig_url}
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.container.start_once: 'true'
       server.type: game-server
   char:
     image: ravenx8/dockerfiles
@@ -77,7 +76,6 @@ services:
       URL: ${autoconfig_url}
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.container.start_once: 'true'
       server.type: game-server
   map:
     image: ravenx8/dockerfiles
@@ -103,7 +101,6 @@ services:
       URL: ${autoconfig_url}
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.container.start_once: 'true'
       server.type: game-server
 
 volumes:
