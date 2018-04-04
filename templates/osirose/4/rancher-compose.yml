@@ -1,0 +1,90 @@
+version: "2"
+catalog:
+  name: "osirose"
+  version: "0.0.5"
+  description: "Deploys an full osirose server stack"
+  minimum_rancher_version: "v1.6.14"
+  maximum_rancher_version: ">v1.6.14"
+  upgrade_from: "0.0.4"
+  questions: 
+    - variable: mysql_hostname
+      description: "MySQL Service Name."
+      label: "MySQL Service Name"
+      required: true
+      type: "string"
+      default: "database"
+    - variable: mysql_lb_port
+      description: "Public port for access to MySQL through the load balancer"
+      label: "MySQL Public LB Port"
+      required: true
+      default: 3306
+      type: "int"
+    - variable: mysql_database
+      description: ""
+      label: "MySQL Database"
+      required: true
+      type: "string"
+    - variable: mysql_user
+      description: ""
+      label: "MySQL User"
+      required: true
+      type: "string"
+    - variable: mysql_password
+      description: ""
+      label: "MySQL Password"
+      required: true
+      type: password
+    - variable: externalip_url
+      description: ""
+      label: "External IP URL Address"
+      required: false
+      type: "string"
+      default: "http://ipv4.myexternalip.com/raw"
+    - variable: autoconfig_url
+      description: ""
+      label: "Internal IP URL Address"
+      required: false
+      type: "string"
+      default: "http://rancher-metadata/latest/self/container/primary_ip"
+      
+services:
+  node:
+    scale: 1
+    start_on_create: false
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 29000
+      unhealthy_threshold: 3
+      interval: 2000
+      strategy: recreate
+  login:
+    scale: 1
+    start_on_create: false
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 29000
+      unhealthy_threshold: 3
+      interval: 2000
+      strategy: recreate
+  char:
+    scale: 1
+    start_on_create: false
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 29100
+      unhealthy_threshold: 3
+      interval: 2000
+      strategy: recreate
+  map:
+    scale: 1
+    start_on_create: false
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 29200
+      unhealthy_threshold: 3
+      interval: 2000
+      strategy: recreate
