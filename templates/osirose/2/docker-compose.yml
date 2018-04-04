@@ -34,8 +34,8 @@ services:
     networks:
      - backend
     ports:
-     - "29000"
-     - "29010"
+     - "29000:29000"
+     - "29010:29010"
     volumes:
      - osirose-data:/data
      - osirose-logs:/logs
@@ -60,8 +60,8 @@ services:
     networks:
      - backend
     ports:
-     - "29100"
-     - "29110"
+     - "29100:29100"
+     - "29110:29110"
     volumes:
      - osirose-data:/data
      - osirose-logs:/logs
@@ -86,8 +86,8 @@ services:
     networks:
       - backend
     ports:
-     - "29200"
-     - "29210"
+     - "29200:29200"
+     - "29210:29210"
     volumes:
      - osirose-data:/data
      - osirose-logs:/logs
