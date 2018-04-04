@@ -34,6 +34,12 @@ catalog:
       label: "MySQL Password"
       required: true
       type: password
+    - variable: externalip_url
+      description: ""
+      label: "External IP URL Address"
+      required: false
+      type: "string"
+      default: "http://ipv4.myexternalip.com/raw"
     - variable: autoconfig_url
       description: ""
       label: "IP URL Address"
