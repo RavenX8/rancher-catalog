@@ -22,7 +22,7 @@ services:
       DB_NAME: ${mysql_database}
       DB_USER_NAME: ${mysql_user}
       DB_USER_PASSWORD: ${mysql_password}
-      AUTOCONFIG_URL: ${autoconfig_url}
+      URL: ${autoconfig_url}
     labels:
       io.rancher.container.pull_image: always
       server.type: node
