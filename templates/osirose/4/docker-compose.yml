@@ -1,7 +1,7 @@
 version: "2"
 services:
   node:
-    image: ravenx8/dockerfiles
+    image: ravenx8/osirose-server
     tty: true
     stdin_open: true
     networks:
@@ -28,7 +28,7 @@ services:
       io.rancher.container.pull_image: always
       server.type: node
   login:
-    image: ravenx8/dockerfiles
+    image: ravenx8/osirose-server
     tty: true
     stdin_open: true
     networks:
@@ -53,7 +53,7 @@ services:
       io.rancher.container.pull_image: always
       server.type: game-server
   char:
-    image: ravenx8/dockerfiles
+    image: ravenx8/osirose-server
     tty: true
     stdin_open: true
     networks:
@@ -78,7 +78,7 @@ services:
       io.rancher.container.pull_image: always
       server.type: game-server
   map:
-    image: ravenx8/dockerfiles
+    image: ravenx8/osirose-server
     tty: true
     stdin_open: true
     networks:
